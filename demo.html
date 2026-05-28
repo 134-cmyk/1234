@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的时光</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#f8b4c4',
+                        secondary: '#a8d8ea',
+                        accent: '#ffd3e0',
+                        dark: '#5a5a5a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .photo-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            .photo-item {
+                overflow: hidden;
+                border-radius: 0.5rem;
+                aspect-ratio: 4/3;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .photo-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .photo-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+            .photo-item:hover img {
+                transform: scale(1.05);
+            }
+            .tab-active {
+                border-bottom: 2px solid #f8b4c4;
+                color: #f8b4c4;
+            }
+            .lightbox {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 1000;
+                justify-content: center;
+                align-items: center;
+            }
+            .lightbox.active {
+                display: flex;
+            }
+            .lightbox img {
+                max-width: 90%;
+                max-height: 90%;
+                object-fit: contain;
+            }
+            .lightbox-close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                color: white;
+                font-size: 40px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+            .lightbox-close:hover {
+                color: #f8b4c4;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 头部 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-light text-center text-dark">
+                <i class="fa fa-heart text-primary mr-2"></i>我们的时光
+            </h1>
+            <p class="text-center text-gray-500 mt-2">记录王文卓和武姝含在一起的每一个美好瞬间</p>
+        </div>
+    </header>
+
+    <!-- 导航标签 -->
+    <nav class="bg-white border-b">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto whitespace-nowrap">
+                <button class="tab-btn tab-active py-4 px-6 text-gray-600 font-medium transition-colors duration-300" data-tab="nantong">
+                    2026 05.01 下南通
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-600 font-medium transition-colors duration-300" data-tab="birthday">
+                    2026 王文卓的生日
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-600 font-medium transition-colors duration-300" data-tab="old">
+                    以前的照片
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 南通相册 -->
+        <div class="tab-content active" id="nantong">
+            <div class="photo-grid">
+                <!-- 在这里添加你的照片 -->
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong1/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong2/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong3/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong4/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong5/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong6/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong7/600/450" alt="南通之旅">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/nantong8/600/450" alt="南通之旅">
+                </div>
+            </div>
+        </div>
+
+        <!-- 生日相册 -->
+        <div class="tab-content hidden" id="birthday">
+            <div class="photo-grid">
+                <!-- 在这里添加你的照片 -->
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday1/600/450" alt="生日照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday2/600/450" alt="生日照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday3/600/450" alt="生日照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday4/600/450" alt="生日照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday5/600/450" alt="生日照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/birthday6/600/450" alt="生日照片">
+                </div>
+            </div>
+        </div>
+
+        <!-- 以前的照片 -->
+        <div class="tab-content hidden" id="old">
+            <div class="photo-grid">
+                <!-- 在这里添加你的照片 -->
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old1/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old2/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old3/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old4/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old5/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old6/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old7/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old8/600/450" alt="回忆照片">
+                </div>
+                <div class="photo-item">
+                    <img src="https://picsum.photos/seed/old9/600/450" alt="回忆照片">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white py-6 mt-12 border-t">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p>Made with <i class="fa fa-heart text-primary"></i> for us</p>
+            <p class="mt-2 text-sm">我们的故事，未完待续...</p>
+        </div>
+    </footer>
+
+    <!-- 图片灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img src="" alt="放大照片" id="lightbox-img">
+    </div>
+
+    <script>
+        // 标签切换功能
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有激活状态
+                tabBtns.forEach(b => b.classList.remove('tab-active'));
+                tabContents.forEach(c => c.classList.add('hidden'));
+                
+                // 添加当前激活状态
+                btn.classList.add('tab-active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+
+        // 图片灯箱功能
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const photoItems = document.querySelectorAll('.photo-item img');
+
+        photoItems.forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lightboxImg.src = img.src;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 按ESC键关闭灯箱
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
